@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs/Operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +12,17 @@ export class UsuarioService {
   constructor(private http: HttpClient) { }
 
   getUsers(){
-    return this.http.get(`${ this.url }/users?page=1&per_page=6`)
-    .pipe(.map( resp => {
-        return resp['data']; //Data es por que ese campo viene en el json de la respuesta del servicio
+    return this.http.get(`${ this.url }/users?page=1&per_page=6&delay=3`)
+    .pipe(map( resp => {
+        return resp['data'];
+      })
+    );
+  }
+
+  getUserById(id: string){
+    return this.http.get(`${ this.url }/users/${id}`)
+    .pipe(map( resp => {
+        return resp['data'];
       })
     );
   }
